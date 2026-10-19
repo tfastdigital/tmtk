@@ -1,0 +1,92 @@
+name: Model request
+description: Ask for a phone or SoC to be added to the TMTK supported-model matrix
+title: "[Model request] "
+labels: ["model-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the request. TMTK recipes are keyed to exact identifiers, so the fields below are the
+        minimum needed to evaluate a new token. **Do not paste IMEI, serial numbers, phone numbers or
+        firmware download links.**
+  - type: input
+    id: token
+    attributes:
+      label: Model token
+      description: The short token printed on the device, in About phone, or in the tool (e.g. KM4, X6725B, UMS9230-UFS).
+      placeholder: "KM4"
+    validations:
+      required: true
+  - type: input
+    id: marketing
+    attributes:
+      label: Marketing name
+      description: Commercial name and brand.
+      placeholder: "Infinix Hot 60 Pro Plus"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - MediaTek (META)
+        - Unisoc / Spreadtrum (SPD)
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: soc
+    attributes:
+      label: SoC
+      description: Chipset model (e.g. MT6769, SC9863A, UMS9230, T615).
+      placeholder: "SC9863A"
+    validations:
+      required: true
+  - type: dropdown
+    id: storage
+    attributes:
+      label: Storage kind
+      description: This changes the partition layout — do not guess.
+      options:
+        - eMMC
+        - UFS
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: patch
+    attributes:
+      label: Security patch
+      description: Month and year, if the recipe is build-keyed (e.g. Aug 2025).
+      placeholder: "Aug 2025"
+    validations:
+      required: false
+  - type: input
+    id: requested
+    attributes:
+      label: Operation requested
+      description: What you need done (e.g. AUTO BL, FDL unlock, PAC partition manager, LK patch).
+      placeholder: "AUTO BL + vbmeta"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence you can supply
+      description: |
+        Anything that helps: a device readout, the partition list, the region/variant, whether the same
+        token appears under another engine. Redact identifiers first.
+    validations:
+      required: false
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: I own this device or am authorised to service it.
+          required: true
+        - label: I have not included IMEI, serial numbers, phone numbers or personal data.
+          required: true
+        - label: I understand the SPD lane currently has no BROM/FDL transport implemented.
+          required: true

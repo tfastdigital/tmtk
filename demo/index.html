@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TMTK v2.0 Demo — Interactive META + SPD Tool Mock-up</title>
+<meta name="description" content="Interactive demo of TMTK v2.0: click through MediaTek META bootloader analysis and Unisoc SPD tooling on simulated data. No device I/O, no protocol code.">
+<meta name="keywords" content="TMTK demo, META mode demo, Unisoc SPD demo, Tecno bootloader tool, Infinix META, iTel SPD tool">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#141414">
+
+<link rel="canonical" href="https://tfastdigital.github.io/tmtk/demo/">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="app.css">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TMTK by TFAST Digital Agency">
+<meta property="og:locale" content="en">
+<meta property="og:url" content="https://tfastdigital.github.io/tmtk/demo/">
+<meta property="og:title" content="TMTK v2.0 Demo — interactive META + SPD mock-up">
+<meta property="og:description" content="Click through MediaTek META bootloader analysis and Unisoc SPD tooling on simulated data. No device I/O, no protocol code, no firmware.">
+<meta property="og:image" content="https://tfastdigital.github.io/tmtk/screenshots/og-banner.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TMTK v2.0 — MTK META and Unisoc SPD work for Tecno, Infinix and iTel">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TMTK v2.0 Demo — interactive META + SPD mock-up">
+<meta name="twitter:description" content="Click through MediaTek META bootloader analysis and Unisoc SPD tooling on simulated data.">
+<meta name="twitter:image" content="https://tfastdigital.github.io/tmtk/screenshots/og-banner.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "TMTK v2.0 Demo — interactive mock-up",
+  "url": "https://tfastdigital.github.io/tmtk/demo/",
+  "description": "Interactive UI mock-up of TMTK v2.0 covering MediaTek META bootloader analysis and Unisoc SPD offline work. Simulated data only; no device access.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "TMTK by TFAST Digital Agency",
+    "url": "https://tfastdigital.github.io/tmtk/"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "TMTK",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Windows",
+    "softwareVersion": "2.0"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- ── Window chrome ─────────────────────────────────────────────────────── -->
+<div class="win" id="win">
+  <div class="titlebar">
+    <div class="tb-left">
+      <svg class="tb-icon" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="8" fill="#2E6FE0"/>
+        <path d="M16 7v12m0 0l-5-5m5 5l5-5M9 24h14" stroke="#fff" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span>TMTK by Tfast Digital Agency</span>
+      <span class="demo-chip" title="This is a mock-up, not the product">DEMO</span>
+    </div>
+    <div class="tb-right" aria-hidden="true"><span>—</span><span>▢</span><span class="tb-x">✕</span></div>
+  </div>
+
+  <div class="app">
+    <!-- Header -->
+    <header class="head">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="#2E6FE0"/>
+          <path d="M16 7v12m0 0l-5-5m5 5l5-5M9 24h14" stroke="#fff" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <div class="brand-txt">
+          <h1>TMTK</h1>
+          <p>by Tfast Digital Agency</p>
+        </div>
+      </div>
+      <div class="buildinfo">
+        <span class="dot"></span>
+        demo build · simulated · no device I/O
+      </div>
+    </header>
+
+    <!-- Workspace switch -->
+    <nav class="ws" role="tablist" aria-label="Workspace">
+      <button class="ws-tab is-on" role="tab" aria-selected="true" data-act="ws" data-ws="mtk">MTK</button>
+      <button class="ws-tab" role="tab" aria-selected="false" data-act="ws" data-ws="spd">SPD</button>
+      <span class="ws-note">two independent engines · one shared log</span>
+    </nav>
+
+    <!-- Body -->
+    <div class="body">
+      <aside class="left" id="left"></aside>
+
+      <section class="right">
+        <nav class="panels" id="panels" role="tablist" aria-label="Panel"></nav>
+        <div class="panel-body" id="panelBody"></div>
+      </section>
+    </div>
+  </div>
+
+  <div class="demobar">
+    <strong>Interactive mock-up.</strong>
+    Every value is simulated fixture data. No serial/USB access, no protocol bytes, no keys, no firmware,
+    no network requests. Nothing here can read, write or unlock a phone.
+  </div>
+</div>
+
+<!-- Inert-action notice -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="fixtures/data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

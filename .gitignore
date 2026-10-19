@@ -1,0 +1,24 @@
+# Nothing binary or sensitive goes public from here.
+*.exe
+*.dll
+*.zip
+*.7z
+*.rar
+*.pac
+*.bin
+*.img
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Screenshots are allowed, but never dump raw captures or logs.
+*.log
+*.txt.large
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/

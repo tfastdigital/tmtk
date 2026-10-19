@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>TMTK v2.0 — Tecno, Infinix &amp; iTel META + SPD Tool | TFAST</title>
+<meta name="description" content="TMTK v2.0 — Windows tool for Tecno, Infinix and iTel: MediaTek META bootloader analysis and Unisoc SPD offline work across 53 model tokens. Docs and demo.">
+<meta name="keywords" content="TMTK, Tecno bootloader unlock, Infinix META mode, iTel SPD tool, MediaTek META, Unisoc SPD, LK bootloader patch, PAC extract, X6725, KM4, CM5">
+<meta name="author" content="TFAST Digital Agency">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0d0d0f">
+
+<link rel="canonical" href="https://tfastdigital.github.io/tmtk/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TMTK by TFAST Digital Agency">
+<meta property="og:locale" content="en">
+<meta property="og:url" content="https://tfastdigital.github.io/tmtk/">
+<meta property="og:title" content="TMTK v2.0 — Tecno, Infinix &amp; iTel META + SPD Tool">
+<meta property="og:description" content="MediaTek META bootloader analysis and Unisoc SPD offline work across 53 model tokens. Documentation and an interactive demo — no source code published.">
+<meta property="og:image" content="https://tfastdigital.github.io/tmtk/screenshots/og-banner.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TMTK v2.0 — MTK META and Unisoc SPD work for Tecno, Infinix and iTel">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TMTK v2.0 — Tecno, Infinix &amp; iTel META + SPD Tool">
+<meta name="twitter:description" content="MediaTek META bootloader analysis and Unisoc SPD offline work across 53 model tokens. Documentation and an interactive demo.">
+<meta name="twitter:image" content="https://tfastdigital.github.io/tmtk/screenshots/og-banner.png">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://tfastdigital.github.io/tmtk/#website",
+      "url": "https://tfastdigital.github.io/tmtk/",
+      "name": "TMTK by TFAST Digital Agency",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://tfastdigital.github.io/tmtk/#org" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://tfastdigital.github.io/tmtk/#org",
+      "name": "TFAST Digital Agency",
+      "url": "https://tfastdigital.com/",
+      "sameAs": [ "https://t.me/tfasthub" ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://tfastdigital.github.io/tmtk/#app",
+      "name": "TMTK",
+      "alternateName": "TMTK v2.0",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows",
+      "softwareVersion": "2.0",
+      "description": "Windows desktop tool for MediaTek META mode bootloader analysis and Unisoc SPD offline work on Tecno, Infinix and iTel devices. 53 model tokens across four engine lists.",
+      "url": "https://tfastdigital.github.io/tmtk/",
+      "publisher": { "@id": "https://tfastdigital.github.io/tmtk/#org" },
+      "isAccessibleForFree": false,
+      "featureList": [
+        "MediaTek META connection and GPT partition read/write",
+        "LK bootloader offline analysis and method selection",
+        "Unisoc PAC archive inspect, plan and extract",
+        "FDL kit identification by name and size",
+        "SHA-256 backup manifest before every write"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://tfastdigital.github.io/tmtk/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is the TMTK source code published here?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. This repository is documentation only. It contains no source files, no binaries, no loaders, no PAC files and no key material. It exists so technicians can see what the tool does and which devices are covered before they ask for access."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the phone need to be rooted for META mode work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. META mode runs instead of the normal boot path, so the bootloader's own lock check never executes. That is what makes a locked, non-rooted MediaTek device readable over the META channel."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which devices does TMTK v2.0 support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "53 model tokens across four engine lists: 18 MediaTek LK patch tokens, the same 18 for ready bootloader, 12 Unisoc AUTO BL tokens, 12 Unisoc FDL unlock tokens and 11 Unisoc SoC or partition tokens. Tecno models include Camon 40, Camon 40 Pro, Camon 30s, Spark 30 C, Spark 40 Pro, Spark 40 Pro Plus, Pop 8, Pop 9, Pop 10 and Pop 20. Infinix models include Hot 60 Pro, Hot 60 Pro Plus and X6880. itel models include A70, A90 and Vision 3."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the Unisoc SPD side work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The SPD engine is in active development. The offline half works today: PAC archive inspect, plan and extract for BP_R1 and BP_R2 containers, vendor and mode classification, storage-type splitting and using the 18 recovered transport key names as a checklist. The BROM to FDL1 to FDL2 transport is still being built, so there is no Unisoc read or write path yet."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does reading a 2 MB bootloader partition take 26 minutes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is the physical cost of the META channel. One shell command costs about 280 ms and a reply frame carries about 500 bytes, which works out to roughly 1.25 KB/s. A 2 MB bootloader slot therefore takes about 26 minutes to read and a similar time to write. TMTK states the estimate before a long operation and saves the image so it can be re-analysed offline."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why will TMTK not pick the right engine automatically?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because 11 tokens are claimed by more than one engine: CM5, CM6, KM4, KM6, KM7, KL5, CLA5, X6880, X6886, X6725 and X6725B. The tool shows every claimant and requires the operator to choose. Automatically picking one would be a coin flip, and the wrong pick is what kills a phone."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tmtk/">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#2E6FE0"/><path d="M16 7v12m0 0l-5-5m5 5l5-5M9 24h14" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>TMTK<small>by TFAST Digital Agency</small></span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#models">Models</a>
+      <a href="#safety">Safety</a>
+      <a href="#faq">FAQ</a>
+      <a href="demo/index.html">Demo</a>
+      <a class="nav-cta" href="https://wa.me/256751399620">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <p class="eyebrow">TMTK v2.0 · Tecno · Infinix · iTel</p>
+      <h1 id="hero-title">MediaTek <em>META</em> and Unisoc <em>SPD</em> work, without the guesswork.</h1>
+      <p class="lede">
+        A Windows desktop tool for <strong>Tecno, Infinix and iTel</strong> bootloader and partition work.
+        Two independent engines — MediaTek META mode and Unisoc SPD — across <strong>53 model tokens</strong>.
+        It reads, identifies and verifies, and it <strong>refuses</strong> when anything is ambiguous.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="demo/index.html">Open the interactive demo</a>
+        <a class="btn" href="https://github.com/tfastdigital/tmtk">View on GitHub</a>
+      </div>
+      <div class="chips">
+        <span class="chip ok">14 verified operations</span>
+        <span class="chip">53 model tokens</span>
+        <span class="chip">Windows · .NET 10 · Avalonia</span>
+        <span class="chip warn">Unisoc transport in development</span>
+        <span class="chip">Documentation only — no source here</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <h2 id="features-title">Two engines, kept deliberately separate</h2>
+      <p class="section-lede">
+        They share a UI, an event log and a backup system — nothing else. You pick the engine that matches
+        the phone in your hand, and an SPD change can never silently alter a META write path.
+      </p>
+
+      <div class="grid two">
+        <article class="card">
+          <span class="card-tag mtk">MTK · META mode</span>
+          <h3>MediaTek bootloader and partition work</h3>
+          <p>
+            META mode runs <em>instead of</em> the normal boot path, so the bootloader's own lock check
+            never executes. That is why a locked, non-rooted device can still have its bootloader
+            partition read and analysed.
+          </p>
+          <ul>
+            <li>META channel over LAN or COM, with a live throughput meter</li>
+            <li>GPT partition listing, read and write, verified byte-exact</li>
+            <li>LK bootloader offline analysis — architecture, identity, lock-store discovery</li>
+            <li>Branch-aware method selection, chosen by what the image actually contains</li>
+            <li>SHA-256 backup manifest written before the first byte</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="card-tag spd">SPD · Unisoc</span>
+          <h3>Offline file work today, transport in development</h3>
+          <p>
+            The Unisoc lane is in active development, and the tool says which half you are in rather than
+            showing a green tick it has not earned.
+          </p>
+          <ul>
+            <li>PAC archive inspect, plan and extract for <code>BP_R1</code> / <code>BP_R2</code>, byte-exact</li>
+            <li>FDL kit identification by name and size, with a SHA-256 per file</li>
+            <li>Vendor and mode classification — <code>spd-diag</code> vs <code>spd-download</code></li>
+            <li>Storage type treated as identity: eMMC and UFS are different targets</li>
+            <li>BROM → FDL1 → FDL2 transport: <strong>still being built</strong></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Models -->
+  <section id="models" aria-labelledby="models-title">
+    <div class="wrap">
+      <h2 id="models-title">Supported model matrix</h2>
+      <p class="section-lede">
+        53 tokens across four engine lists. A token never implies an engine on its own — the tool shows
+        every list that claims it. Red-bordered tokens are claimed by more than one engine.
+      </p>
+
+      <div class="matrix">
+        <div class="matrix-group">
+          <h3>MTK — LK file patch <span>18</span></h3>
+          <div class="tokens">
+            <span class="shared">CM5</span><span class="shared">CM6</span><span class="shared">X6880</span>
+            <span class="shared">X6886</span><span class="shared">KL5</span><span>KM5</span>
+            <span class="shared">KM6</span><span class="shared">KM7</span><span>CK6</span>
+            <span>CK7</span><span>CL6</span><span class="shared">CLA5</span>
+            <span>KL7</span><span>X6728B</span><span class="shared">KM4</span>
+            <span>A100</span><span class="shared">X6725</span><span class="shared">X6725B</span>
+          </div>
+        </div>
+
+        <div class="matrix-group">
+          <h3>MTK — ready bootloader <span>18</span></h3>
+          <div class="tokens">
+            <span>CM5</span><span>CM6</span><span>X6880</span><span>X6886</span><span>KL5</span>
+            <span>KM5</span><span>KM6</span><span>KM7</span><span>CK6</span><span>CK7</span>
+            <span>CL6</span><span>CLA5</span><span>KL7</span><span>X6728B</span><span>KM4</span>
+            <span>A100</span><span>X6725</span><span>X6725B</span>
+          </div>
+        </div>
+
+        <div class="matrix-group">
+          <h3>SPD — AUTO BL / vbmeta <span>12</span></h3>
+          <div class="tokens">
+            <span class="shared">X6725B</span><span>X6526D_V2506</span><span class="shared">X6725</span>
+            <span>X6525</span><span>A6610L</span><span>A666L</span><span>BG6</span>
+            <span>BG6M</span><span class="shared">KM4</span><span>KL4</span>
+            <span>KN3_AUG</span><span>KN3_FEB</span>
+          </div>
+        </div>
+
+        <div class="matrix-group">
+          <h3>SPD — FDL / EDL unlock <span>12</span></h3>
+          <div class="tokens">
+            <span class="shared">KM6</span><span class="shared">KM7</span><span class="shared">CM5</span>
+            <span class="shared">CM6</span><span class="shared">CLA5</span><span class="shared">X6886</span>
+            <span>X6885</span><span class="shared">KL5</span><span class="shared">X6880</span>
+            <span>X6853</span><span>X6850</span><span>X6851</span>
+          </div>
+        </div>
+
+        <div class="matrix-group" style="grid-column: 1 / -1;">
+          <h3>SPD — partition manager / PAC <span>11</span></h3>
+          <div class="tokens">
+            <span>SC9863A</span><span>SC9863A_64</span><span>TIGER_T615</span><span>TIGER_T616</span>
+            <span>M-KOPA S34</span><span>SC9863A-ITEL-VISION3</span><span>SC9863A-ZTE-BLADE-A31</span>
+            <span>UMS9230</span><span>UMS9230-UFS</span><span>UMS9620-DRAMTYPE1</span>
+            <span>UMS9620-DRAMTYPE2</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>11 tokens are claimed by more than one engine:</strong>
+        CM5, CM6, KM4, KM6, KM7, KL5, CLA5, X6880, X6886, X6725, X6725B.
+        The tool shows every claimant and makes you choose. It never picks for you — a wrong pick is what
+        kills a phone. Likewise, <code>UMS9230</code> (eMMC) is not <code>UMS9230-UFS</code>, and
+        <code>UMS9620</code> splits by DRAM type, because the partition layout differs.
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety -->
+  <section id="safety" aria-labelledby="safety-title">
+    <div class="wrap">
+      <h2 id="safety-title">No green ticks without proof</h2>
+      <p class="section-lede">
+        Every capability carries a status, and a method is only usable when it is both adopted and
+        <code>Verified</code> or <code>Tested</code>. These rules are enforced by automated tests, not by
+        good intentions — an optimistic status shows up immediately as a false verdict in the suite.
+      </p>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption class="visually-hidden" style="position:absolute;left:-9999px">Capability status levels used by TMTK</caption>
+          <thead>
+            <tr><th scope="col">Status</th><th scope="col">Meaning</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>Verified</code></td><td>Measured on real hardware</td></tr>
+            <tr><td><code>Tested</code></td><td>Implemented and covered by automated tests, no hardware</td></tr>
+            <tr><td><code>Reconstructed</code></td><td>Recovered from a third-party binary, never executed</td></tr>
+            <tr><td><code>Claimed</code></td><td>Asserted by a vendor README or changelog only</td></tr>
+            <tr><td><code>Placeholder</code></td><td>Interface exists, protocol does not</td></tr>
+            <tr><td><code>Hypothesis</code></td><td>Proposed, unmeasured, unimplemented</td></tr>
+            <tr><td><code>Excluded</code></td><td>Recorded for completeness, excluded by policy</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid two" style="margin-top:22px">
+        <div class="card">
+          <h3>Safety model</h3>
+          <ul class="status-list">
+            <li><span class="dot on"></span><span><strong>Backup first.</strong> <span class="why">lk, lk_a, lk_b and seccfg are hashed into a manifest before the first byte.</span></span></li>
+            <li><span class="dot on"></span><span><strong>Two presses, always.</strong> <span class="why">No destructive action fires on a single click, and the confirmation is invalidated when the target changes.</span></span></li>
+            <li><span class="dot on"></span><span><strong>Partial reads are never patchable.</strong> <span class="why">A truncated image is refused, not repaired.</span></span></li>
+            <li><span class="dot on"></span><span><strong>Read back and compare.</strong> <span class="why">After a write the slot is read again and compared byte-for-byte.</span></span></li>
+            <li><span class="dot off"></span><span><strong>Policy-blocked work stays blocked.</strong> <span class="why">BootROM exec_addr stubs and the CVE-2022-38694 class are Excluded and refuse to run even when every prerequisite is supplied.</span></span></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Where the SPD lane stands</h3>
+          <ul class="status-list">
+            <li><span class="dot on"></span><span><strong>PAC container handling</strong> <span class="why">Inspect, plan and extract, byte-exact</span></span></li>
+            <li><span class="dot on"></span><span><strong>FDL kit identification</strong> <span class="why">FDL1/FDL2 pair by name and size, SHA-256 per file</span></span></li>
+            <li><span class="dot on"></span><span><strong>Vendor and mode classification</strong> <span class="why">Spreadtrum VID 0x1782, diag vs download</span></span></li>
+            <li><span class="dot wip"></span><span><strong>Transport vocabulary</strong> <span class="why">18 key names recovered, zero values</span></span></li>
+            <li><span class="dot off"></span><span><strong>BROM → FDL1 → FDL2 transport</strong> <span class="why">In development — no Unisoc read or write path yet</span></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots -->
+  <section id="screenshots" aria-labelledby="shots-title">
+    <div class="wrap">
+      <h2 id="shots-title">Inside the tool</h2>
+      <p class="section-lede">
+        Real captures from a clean start with no phone connected. Nothing staged, nothing retouched.
+      </p>
+      <div class="shots">
+        <figure class="shot">
+          <img src="screenshots/01-main-window.png" alt="TMTK MTK workspace showing the META connection panel, model picker, backup settings and shared event log" width="1502" height="964" loading="lazy" decoding="async">
+          <figcaption><b>MTK workspace</b> — META connect, model picker, backup before write</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="screenshots/03-lk-methods.png" alt="TMTK bootloader panel with find slots, check phone, read and analyse, and scan methods actions" width="1502" height="964" loading="lazy" decoding="async">
+          <figcaption><b>Bootloader (LK)</b> — find slots, read and analyse offline</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="screenshots/04-supported-models.png" alt="TMTK supported model matrix listing all 18 MediaTek tokens with a shared engine warning" width="1502" height="964" loading="lazy" decoding="async">
+          <figcaption><b>Model matrix</b> — every engine that claims a token</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="screenshots/10-spd-transport.png" alt="TMTK Unisoc transport schema listing 18 recovered keys, each marked value not recovered" width="1502" height="964" loading="lazy" decoding="async">
+          <figcaption><b>Transport schema</b> — 18 key names recovered, zero values</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo -->
+  <section id="demo" aria-labelledby="demo-title">
+    <div class="wrap">
+      <h2 id="demo-title">Try it before you ask for access</h2>
+      <p class="section-lede">
+        The demo is an interactive mock-up — the interface, the states and the feel of the tool, with
+        nothing behind it. No WebSerial or WebUSB, no protocol bytes, no keys, no network requests. Its
+        only four requests are its own four files.
+      </p>
+      <div class="grid three">
+        <div class="card">
+          <h3>What you can click</h3>
+          <p>Connect, read the partition table, run the bootloader analysis, and resolve any model token
+             to see every engine that claims it.</p>
+        </div>
+        <div class="card">
+          <h3>What it will show you</h3>
+          <p>The refusals. The demo ends the bootloader flow in a refusal because the real build does —
+             a 32-bit image cannot take an AArch64 patch.</p>
+        </div>
+        <div class="card">
+          <h3>What it will not do</h3>
+          <p>Touch a device, send a command, or imply a capability that is still a
+             <code>Placeholder</code>.</p>
+        </div>
+      </div>
+      <p style="margin-top:24px"><a class="btn primary" href="demo/index.html">Launch the demo shell</a></p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <h2 id="faq-title">Frequently asked</h2>
+      <p class="section-lede">The same answers technicians ask for first.</p>
+
+      <details>
+        <summary>Is the TMTK source code published here?</summary>
+        <div class="faq-body">
+          <p>No. This repository is documentation only. It contains no source files, no binaries, no
+             loaders, no PAC files and no key material. It exists so technicians can see what the tool
+             does and which devices are covered before they ask for access.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Does the phone need to be rooted for META mode work?</summary>
+        <div class="faq-body">
+          <p>No. META mode runs <em>instead of</em> the normal boot path, so the bootloader's own lock
+             check never executes. That is what makes a locked, non-rooted MediaTek device readable over
+             the META channel.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Which devices does TMTK v2.0 support?</summary>
+        <div class="faq-body">
+          <p>53 model tokens across four engine lists: 18 MediaTek LK patch tokens, the same 18 for ready
+             bootloader, 12 Unisoc AUTO BL tokens, 12 Unisoc FDL unlock tokens and 11 Unisoc SoC or
+             partition tokens.</p>
+          <p>Tecno models include Camon 40, Camon 40 Pro, Camon 30s, Spark 30 C, Spark 40 Pro,
+             Spark 40 Pro Plus, Pop 8, Pop 9, Pop 10 and Pop 20. Infinix models include Hot 60 Pro,
+             Hot 60 Pro Plus and X6880. itel models include A70, A90 and Vision 3.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Does the Unisoc SPD side work?</summary>
+        <div class="faq-body">
+          <p>The SPD engine is in active development. The offline half works today: PAC archive inspect,
+             plan and extract for <code>BP_R1</code> and <code>BP_R2</code> containers, vendor and mode
+             classification, storage-type splitting and using the 18 recovered transport key names as a
+             checklist.</p>
+          <p>The BROM → FDL1 → FDL2 transport is still being built, so there is no Unisoc read or write
+             path yet.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Why does reading a 2 MB bootloader partition take 26 minutes?</summary>
+        <div class="faq-body">
+          <p>It is the physical cost of the META channel. One shell command costs about 280 ms and a reply
+             frame carries about 500 bytes, which works out to roughly 1.25 KB/s. A 2 MB bootloader slot
+             therefore takes about 26 minutes to read and a similar time to write.</p>
+          <p>TMTK states the estimate before a long operation and saves the image so it can be re-analysed
+             offline without paying that cost twice.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Why will TMTK not pick the right engine automatically?</summary>
+        <div class="faq-body">
+          <p>Because 11 tokens are claimed by more than one engine: CM5, CM6, KM4, KM6, KM7, KL5, CLA5,
+             X6880, X6886, X6725 and X6725B. The tool shows every claimant and requires the operator to
+             choose.</p>
+          <p>Automatically picking one would be a coin flip, and the wrong pick is what kills a phone.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <h2 id="contact-title">Access, model requests and support</h2>
+      <p class="section-lede">
+        Missing your device in the matrix? A model request needs the token, the SoC and the security
+        patch — that is exactly the data needed to key a new recipe.
+      </p>
+      <div class="contact">
+        <a href="https://wa.me/256751399620">
+          <span class="ico" aria-hidden="true">💬</span>
+          <span>WhatsApp<span class="lbl">+256 751 399 620</span></span>
+        </a>
+        <a href="https://tfastdigital.com/">
+          <span class="ico" aria-hidden="true">🌐</span>
+          <span>Website<span class="lbl">tfastdigital.com</span></span>
+        </a>
+        <a href="https://t.me/tfasthub">
+          <span class="ico" aria-hidden="true">📢</span>
+          <span>Telegram<span class="lbl">t.me/tfasthub</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <p><strong>TMTK v2.0</strong> · TFAST Digital Agency</p>
+        <p>Documentation and demo only. No source code, binaries, loaders, firmware or key material is
+           published here.</p>
+      </div>
+      <div>
+        <p><a href="https://github.com/tfastdigital/tmtk">GitHub repository</a></p>
+        <p><a href="https://github.com/tfastdigital/tmtk/blob/main/docs/HOW-IT-WORKS.md">How it works</a></p>
+        <p><a href="https://github.com/tfastdigital/tmtk/blob/main/docs/FAQ.md">Full FAQ</a></p>
+        <p><a href="https://github.com/tfastdigital/tmtk/blob/main/docs/DISCLAIMER.md">Disclaimer</a></p>
+      </div>
+    </div>
+    <p class="legal">
+      Use on devices you own or are authorised to service. Bootloader unlocking and partition writing can
+      permanently brick a device and may void warranty. Tecno, Infinix, itel, MediaTek, Unisoc and
+      Spreadtrum are trademarks of their respective owners; TMTK is not affiliated with, endorsed by or
+      sponsored by any of them.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

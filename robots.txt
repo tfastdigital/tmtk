@@ -1,0 +1,11 @@
+# TMTK v2.0 — public documentation and demo
+# Only documentation is published here. There is no source code, no binaries and no firmware.
+
+User-agent: *
+Allow: /
+
+# Nothing is served from these paths, but keep crawlers out of editor noise.
+Disallow: /.git/
+Disallow: /.github/
+
+Sitemap: https://tfastdigital.github.io/tmtk/sitemap.xml

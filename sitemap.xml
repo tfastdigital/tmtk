@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://tfastdigital.github.io/tmtk/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://tfastdigital.github.io/tmtk/screenshots/01-main-window.png</image:loc>
+      <image:title>TMTK v2.0 META workspace</image:title>
+      <image:caption>TMTK v2.0 MTK workspace: META connection, model picker and shared event log.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://tfastdigital.github.io/tmtk/screenshots/04-supported-models.png</image:loc>
+      <image:title>TMTK supported model matrix</image:title>
+      <image:caption>53 model tokens across four engine lists for Tecno, Infinix and iTel devices.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://tfastdigital.github.io/tmtk/screenshots/10-spd-transport.png</image:loc>
+      <image:title>Unisoc transport schema</image:title>
+      <image:caption>The 18 recovered Unisoc transport keys, every value still marked as not recovered.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tfastdigital.github.io/tmtk/demo/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>
